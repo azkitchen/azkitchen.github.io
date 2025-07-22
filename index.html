@@ -1,7 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delight Catering</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background-color: #8d2d44; color: white; padding: 20px; text-align: center; }
+    nav { background-color: #f4f4f4; padding: 10px; text-align: center; }
+    nav a { margin: 0 15px; text-decoration: none; color: #333; }
+    .hero { background: url('https://via.placeholder.com/1200x400') center/cover no-repeat; height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; }
+    section { padding: 40px 20px; }
+    .services, .testimonials { background-color: #f9f9f9; }
+    .contact-form input, .contact-form textarea { display: block; width: 100%; margin: 10px 0; padding: 10px; }
+    .contact-form button { padding: 10px 20px; background-color: #8d2d44; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+  <header>
+    <h1>Delight Catering</h1>
+    <p>Flavors that make moments unforgettable</p>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Menu</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <div class="hero">
+    <div>Fresh. Elegant. Delicious.</div>
+  </div>
+
+  <section class="services">
+    <h2>Our Services</h2>
+    <ul>
+      <li>Wedding Catering</li>
+      <li>Corporate Events</li>
+      <li>Private Parties</li>
+      <li>Custom Menus</li>
+    </ul>
+  </section>
+
+  <section class="testimonials">
+    <h2>Happy Clients</h2>
+    <p>"The food was incredible and the team was professional. A+ service!" – Jamie T.</p>
+    <p>"They helped make our event truly special. Highly recommend!" – Alex W.</p>
+  </section>
+
+  <section class="contact-form">
+    <h2>Contact Us</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Email Address" required />
+      <textarea rows="5" placeholder="Your Message"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
 </body>
 </html>
