@@ -36,6 +36,7 @@
             --rose: #e6be8a;
             --rose-hover: #d4aa7a;
             --forest-green: #2d4a3e;
+            --light-grey-bg: #f7f2eb;
         }
 
         body {
@@ -1100,6 +1101,71 @@
             color: #c0392b;
         }
 
+        /* ----- CONTACT FORM ----- */
+        .contact-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: rgba(250, 246, 241, 0.85);
+            border-radius: 40px;
+            padding: 2.2rem 2rem;
+            margin: 2rem 0 2.5rem;
+            backdrop-filter: blur(2px);
+        }
+        .contact-info {
+            flex: 1 1 200px;
+        }
+        .contact-info i {
+            color: var(--rose);
+            width: 28px;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+        .contact-info p {
+            margin: 0.6rem 0;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+        .contact-form {
+            flex: 2 1 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            padding: 0.8rem 1.2rem;
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        .contact-form textarea {
+            border-radius: 24px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        .contact-form button {
+            width: 100%;
+            padding: 0.8rem 2rem;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
         /* ============================================================ */
         /* RESPONSIVE OPTIMIZATIONS */
         /* ============================================================ */
@@ -1112,29 +1178,6 @@
             
             .section-title {
                 font-size: 2rem;
-            }
-            
-            .chef-avatar {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .site-footer {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-            }
-            
-            .site-footer .footer-socials a {
-                margin: 0 0.8rem;
-            }
-            
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .meal-options {
-                grid-template-columns: 1fr;
             }
             
             .hero-image {
@@ -1155,6 +1198,72 @@
                 right: -80px;
                 left: -80px;
                 opacity: 0.12;
+            }
+
+            /* Chef section - stack on tablet */
+            .chef-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            .chef-block {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .review-block {
+                border-left: none;
+                border-top: 1px solid var(--border-light);
+                padding-left: 0;
+                padding-top: 1.5rem;
+                text-align: center;
+            }
+
+            .chef-avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            /* Contact form fix */
+            .contact-wrapper {
+                flex-direction: column;
+                padding: 1.5rem;
+                gap: 30px;
+            }
+
+            .contact-info {
+                text-align: center;
+            }
+
+            .contact-form {
+                width: 100%;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 0.9rem;
+                padding: 0.7rem 1rem;
+            }
+
+            .contact-form button {
+                width: 100%;
+                padding: 0.8rem;
+            }
+
+            /* Overlay form */
+            .overlay-card {
+                padding: 1.5rem;
+                margin: 0.5rem;
+                border-radius: 30px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .meal-options {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -1210,6 +1319,41 @@
                 font-size: 1.8rem;
                 margin: 2rem 0 1rem;
             }
+
+            /* Serve grid - stack on mobile */
+            .serve-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .serve-card {
+                padding: 1.5rem;
+                text-align: center;
+                align-items: center;
+            }
+
+            .serve-card .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .serve-image {
+                height: 180px;
+            }
+
+            /* Occasions grid - mobile */
+            .occasions-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .occasion-image-wrapper {
+                height: 140px;
+            }
+
+            .occasion-label {
+                font-size: 0.75rem;
+            }
             
             .pillars {
                 grid-template-columns: 1fr 1fr;
@@ -1223,68 +1367,170 @@
             .pillar i {
                 font-size: 1.6rem;
             }
-            
-            .overlay-card {
+
+            /* Chef section - mobile */
+            .chef-container {
+                padding: 1.2rem;
+                margin: 2rem 0;
+                border-radius: 20px;
+            }
+
+            .chef-block {
+                gap: 1rem;
+            }
+
+            .chef-avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .chef-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .chef-text p {
+                font-size: 0.85rem;
+            }
+
+            .review-text {
+                font-size: 0.9rem;
+            }
+
+            /* Bottom CTA - mobile */
+            .bottom-cta {
+                flex-direction: column;
+                text-align: center;
                 padding: 1.5rem;
-                margin: 0.5rem;
-                border-radius: 30px;
+                gap: 15px;
             }
-            
-            .overlay-card .close-btn {
-                font-size: 1.8rem;
+
+            .bottom-cta h2 {
+                font-size: 1.4rem;
             }
-            
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .cta-buttons .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Contact form - mobile */
+            .contact-wrapper {
+                padding: 1.2rem;
+                gap: 20px;
+            }
+
+            .contact-info p {
+                font-size: 0.85rem;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-size: 0.85rem;
+                padding: 0.6rem 0.9rem;
+            }
+
+            /* Footer - mobile */
+            .site-footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.2rem;
+                padding: 1.5rem 0;
+            }
+
+            .site-footer .footer-socials a {
+                margin: 0 0.6rem;
+                font-size: 1.2rem;
+            }
+
+            .site-footer .logo img {
+                height: 38px;
+            }
+
+            .site-footer .copy {
+                font-size: 0.75rem;
+            }
+
+            /* Overlay form - mobile */
             .form-section h2 {
                 font-size: 1.6rem;
             }
-            
+
             .form-group input,
             .form-group textarea,
             .form-group select {
                 font-size: 0.9rem;
                 padding: 0.7rem 0.9rem;
             }
-            
+
             .order-summary {
                 padding: 1rem 1.2rem;
             }
-            
+
             .summary-row {
                 font-size: 0.8rem;
             }
-            
+
             .summary-row.total {
                 font-size: 1rem;
             }
-            
+
             .payment-options {
                 gap: 0.8rem;
             }
-            
+
             .payment-options label {
                 font-size: 0.8rem;
             }
-            
+
             .form-actions {
                 flex-direction: column;
             }
-            
+
             .form-actions .btn {
                 width: 100%;
                 text-align: center;
             }
-            
-            .site-footer .logo img {
-                height: 38px;
+
+            .overlay-card .close-btn {
+                font-size: 1.8rem;
             }
-            
-            .site-footer .footer-socials a {
-                margin: 0 0.6rem;
-                font-size: 1.2rem;
+
+            /* Navigation - mobile */
+            .logo img {
+                height: 32px;
             }
-            
-            .site-footer .copy {
+
+            /* Choose Us - mobile */
+            .choose-us {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.2rem;
+                gap: 12px;
+            }
+
+            .choose-us h3 {
+                white-space: normal !important;
+                font-size: 1.3rem !important;
+            }
+
+            .choose-items {
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .choose-items span {
                 font-size: 0.75rem;
+            }
+
+            .hero-badge {
+                gap: 10px 15px;
+                font-size: 0.65rem;
+                justify-content: center;
             }
         }
 
@@ -1314,6 +1560,19 @@
 
             .hero-text {
                 padding: 0.6rem 0.8rem;
+            }
+
+            .occasions-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .occasion-image-wrapper {
+                height: 120px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
             }
         }
 
@@ -1379,7 +1638,6 @@
             <div class="nav-links" id="navLinks">
                 <a href="#">Home</a>
                 <a href="#" onclick="openCateringForm(event)">Catering</a>
-                <!-- <a href="#meals">Family Meals</a> -->
                 <a href="#about">About</a>
                 <a href="#" onclick="openContactForm(event)">Contact</a>
                 <a href="#" class="btn-nav" onclick="openCateringForm(event)"><i class="fas fa-comment"></i> Request a Quote</a>
@@ -1398,12 +1656,10 @@
                 <p class="subhead">Fresh Mediterranean and Moroccan cuisine for corporate events, private gatherings, and celebrations throughout Orlando.</p>
                 <div class="btn-group">
                     <a href="#" class="btn btn-primary" onclick="openCateringForm(event)"><i class="fas fa-clipboard-list"></i> Request Catering Quote</a>
-                    <!-- <a href="#meals" class="btn btn-outline">View Weekly Family Meals</a> -->
                 </div>
                 <div class="hero-badge">
                     <span><i class="fas fa-briefcase"></i> Corporate Catering</span>
                     <span><i class="fas fa-users"></i> Private Events</span>
-                    <!-- <span><i class="fas fa-heart"></i> Family Meals</span> -->
                     <span><i class="fas fa-location-dot"></i> Orlando Delivery</span>
                 </div>
             </div>
@@ -1438,23 +1694,6 @@
                 </ul>
                 <a href="#" class="btn btn-primary" onclick="openCateringForm(event)" style="margin-top: auto;">Request a Quote</a>
             </div>
-
-            <!-- Family Meals Card - HIDDEN -->
-            <!-- 
-            <div class="serve-card" style="display: flex; flex-direction: column; height: 100%;">
-                <img src="img/family-meal.png" alt="Family meal spread" class="serve-image" />
-                <h3>FAMILY MEALS</h3>
-                <p>Chef-prepared for busy families.</p>
-                <ul class="serve-features" style="flex: 1;">
-                    <li><i class="fas fa-circle"></i> Weekly rotating menu</li>
-                    <li><i class="fas fa-circle"></i> Serves 2–6</li>
-                    <li><i class="fas fa-circle"></i> Heat &amp; serve</li>
-                    <li><i class="fas fa-circle"></i> Fresh every week</li>
-                    <li><i class="fas fa-circle"></i> Delivered to your door</li>
-                </ul>
-                <a href="#family-meals" class="btn btn-primary" style="margin-top: auto;">View This Week's Menu</a>
-            </div>
-            -->
             
         </div>
     </div>
@@ -1490,30 +1729,12 @@
                 <div class="occasion-label">Private Dinners</div>
             </div>
 
-            <!--
-            <div class="occasion-card">
-                <div class="occasion-image-wrapper">
-                    <img src="img/catering4.jpg" alt="Weddings" />
-                </div>
-                <div class="occasion-label">Weddings</div>
-            </div>
-            -->
-
             <div class="occasion-card">
                 <div class="occasion-image-wrapper">
                     <img src="img/catering3.jpg" alt="Baby Showers" />
                 </div>
                 <div class="occasion-label">Baby Showers</div>
             </div>
-
-            <!--
-            <div class="occasion-card">
-                <div class="occasion-image-wrapper">
-                    <img src="img/catering5.jpg" alt="Graduations" />
-                </div>
-                <div class="occasion-label">Graduations</div>
-            </div>
-            -->
 
             <div class="occasion-card">
                 <div class="occasion-image-wrapper">
@@ -1538,16 +1759,6 @@
             </div>
         </div>
     </div>
-
-    <!-- ===== MEALS SECTION - FULLY HIDDEN ===== -->
-    <!--
-    <div class="container" id="meals">
-        <h2 class="section-title" style="text-align:center; margin-bottom:0.5rem;">This Week's Family Meals</h2>
-        <div class="menu-grid">
-            ... all menu items ...
-        </div>
-    </div>
-    -->
 
     <!-- ===== CHEF & REVIEWS ===== -->
     <div class="container" id="about">
@@ -1854,14 +2065,14 @@
                 <h2><i class="fas fa-envelope"></i> Contact Us</h2>
                 <p class="subtitle">Have a question about our catering? We'd love to hear from you!</p>
 
-                <div class="contact-wrapper" style="padding: 0; margin: 0; background: transparent; backdrop-filter: none;">
-                    <div class="contact-info" style="flex: 1 1 200px;">
+                <div class="contact-wrapper">
+                    <div class="contact-info">
                         <p><i class="fas fa-phone"></i> (407) 555‑AZK1</p>
                         <p><i class="fas fa-envelope"></i> hello@azkitchen.com</p>
                         <p><i class="fas fa-map-pin"></i> Orlando, FL 32825</p>
                         <p style="margin-top: 1rem;"><i class="fas fa-truck"></i> Delivery available</p>
                     </div>
-                    <div class="contact-form" style="flex: 2 1 280px;">
+                    <div class="contact-form">
                         <form id="contactForm" action="https://formspree.io/f/xgojzzld" method="POST">
                             <input type="text" name="contact_name" placeholder="Your name" required />
                             <input type="email" name="contact_email" placeholder="Email address" required />
