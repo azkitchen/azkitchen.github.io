@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catering Feedback Form</title>
+  <style>
+    /* ─── RESET & BASE ─── */
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', 'Helvetica Neue', 'Segoe UI', sans-serif;
+      background: #fefcf7;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .form-container {
+      max-width: 680px;
+      width: 100%;
+      background: #fefcf7;
+      padding: 30px 25px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      font-size: 26px;
+      margin-top: 0;
+      color: #1e2b2b;
+      border-bottom: 3px solid #2d4a3e;
+      padding-bottom: 12px;
+    }
+    h3 {
+      font-size: 18px;
+      margin: 28px 0 14px 0;
+      color: #2d4a3e;
+      border-left: 4px solid #e6be8a;
+      padding-left: 12px;
+    }
+    h3 small {
+      font-weight: 400;
+      color: #4a5f5f;
+      font-size: 14px;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin: 18px 0 6px 0;
+      font-size: 15px;
+      color: #4a5f5f;
+    }
+    label small {
+      font-weight: 400;
+      color: #6c757d;
+      font-size: 13px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 14px 12px;
+      font-size: 16px;
+      border: 1.5px solid #d1d5db;
+      border-radius: 10px;
+      background: #fafafa;
+      transition: border 0.2s;
+      font-family: inherit;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #e6be8a;
+      outline: none;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(230, 126, 34, 0.15);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    hr {
+      border: none;
+      border-top: 2px dashed #e9ecef;
+      margin: 30px 0 10px 0;
+    }
+    .required-star {
+      color: #e6be8a;
+      margin-left: 2px;
+    }
+
+    /* ─── STAR RATING ─── */
+    .star-rating {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      gap: 6px;
+      margin: 4px 0 2px 0;
+    }
+    .star-rating input {
+      display: none;
+    }
+    .star-rating label {
+      font-size: 36px;
+      color: #d1d5db;
+      cursor: pointer;
+      transition: color 0.15s, transform 0.1s;
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-weight: 400;
+    }
+    .star-rating label:hover,
+    .star-rating label:hover ~ label,
+    .star-rating input:checked ~ label {
+      color: #f5b342;
+      transform: scale(1.1);
+    }
+    .star-rating input:checked ~ label {
+      transform: scale(1);
+    }
+    .rating-hint {
+      font-size: 13px;
+      color: #868e96;
+      margin: 2px 0 6px 4px;
+    }
+
+    /* ─── CONSENT BOX ─── */
+    .consent-box {
+      background: #fefcf7;
+      padding: 16px 18px;
+      border-left: 5px solid #e6be8a;
+      border-radius: 8px;
+      margin: 10px 0 6px 0;
+    }
+    .consent-box input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      accent-color: #e6be8a;
+      transform: translateY(3px);
+    }
+    .consent-box label {
+      display: inline;
+      font-weight: 400;
+      font-size: 15px;
+      color: #1e1e1e;
+    }
+    .consent-box strong {
+      color: #1a1a1a;
+    }
+
+    /* ─── SUBMIT ─── */
+    button[type="submit"] {
+      background: #2d4a3e;
+      color: #fff;
+      border: none;
+      padding: 18px 24px;
+      font-size: 20px;
+      font-weight: 700;
+      border-radius: 50px;
+      width: 100%;
+      margin-top: 28px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      letter-spacing: 0.5px;
+    }
+    button[type="submit"]:hover {
+      background: #3a4f4f;
+    }
+    button[type="submit"]:active {
+      transform: scale(0.97);
+    }
+    .note {
+      font-size: 14px;
+      color: #6c757d;
+      margin: 6px 0 0 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+
+  <h1>📋 Catering Feedback</h1>
+  <p style="color: #2d4a3e; margin-bottom: 24px;">Help us serve you better — and future clients too.</p>
+
+  <!-- ============================================================ -->
+  <!--  FORM STARTS HERE                                             -->
+  <!-- ============================================================ -->
+  <form action="https://formspree.io/f/xwvgkprk" method="POST">
+
+    <!-- ──── HIDDEN TRACKING FIELDS ──── -->
+    <input type="hidden" name="_subject" value="NEW CATERING FEEDBACK">
+    <input type="hidden" name="_captcha" value="true">
+    <input type="hidden" name="sales_rep" value="Unassigned">
+
+    <!-- ========================================================== -->
+    <!-- SECTION 1: BASIC INFORMATION                               -->
+    <!-- ========================================================== -->
+    <h3>1. About Your Event</h3>
+
+    <label for="name">Full Name <small>(optional — for anonymous feedback)</small></label>
+    <input type="text" id="name" name="name" placeholder="e.g., Sarah Johnson" autocomplete="name">
+
+    <label for="email">Email Address <span class="required-star">*</span> <small>(to send your thank‑you voucher)</small></label>
+    <input type="email" id="email" name="email" required placeholder="sarah@company.com" autocomplete="email">
+
+    <label for="event-date">Event Date</label>
+    <input type="date" id="event-date" name="event_date">
+
+    <label for="event-type">Type of Event</label>
+    <select id="event-type" name="event_type">
+      <option value="">— Select one —</option>
+      <option value="corporate">Corporate / Business</option>
+      <option value="birthday">Birthday Party</option>
+      <option value="holiday">Holiday Party</option>
+      <option value="other">Other</option>
+    </select>
+
+    <hr>
+
+    <!-- ========================================================== -->
+    <!-- SECTION 2: FOOD QUALITY (Star Ratings)                     -->
+    <!-- ========================================================== -->
+    <h3>2. Rate the Food <small>(1 = Very Poor, 5 = Excellent)</small></h3>
+
+    <!-- TASTE -->
+    <label>Taste &amp; Freshness <span class="required-star">*</span></label>
+    <div class="star-rating">
+      <input type="radio" name="food_taste" id="taste5" value="5" required>
+      <label for="taste5" title="5 Stars">★</label>
+      <input type="radio" name="food_taste" id="taste4" value="4">
+      <label for="taste4" title="4 Stars">★</label>
+      <input type="radio" name="food_taste" id="taste3" value="3">
+      <label for="taste3" title="3 Stars">★</label>
+      <input type="radio" name="food_taste" id="taste2" value="2">
+      <label for="taste2" title="2 Stars">★</label>
+      <input type="radio" name="food_taste" id="taste1" value="1">
+      <label for="taste1" title="1 Star">★</label>
+    </div>
+
+    <!-- PRESENTATION -->
+    <label>Food Presentation</label>
+    <div class="star-rating">
+      <input type="radio" name="food_presentation" id="pres5" value="5">
+      <label for="pres5" title="5 Stars">★</label>
+      <input type="radio" name="food_presentation" id="pres4" value="4">
+      <label for="pres4" title="4 Stars">★</label>
+      <input type="radio" name="food_presentation" id="pres3" value="3">
+      <label for="pres3" title="3 Stars">★</label>
+      <input type="radio" name="food_presentation" id="pres2" value="2">
+      <label for="pres2" title="2 Stars">★</label>
+      <input type="radio" name="food_presentation" id="pres1" value="1">
+      <label for="pres1" title="1 Star">★</label>
+    </div>
+
+    <!-- TEMPERATURE -->
+    <label>Temperature &amp; Freshness</label>
+    <div class="star-rating">
+      <input type="radio" name="food_temperature" id="temp5" value="5">
+      <label for="temp5" title="5 Stars">★</label>
+      <input type="radio" name="food_temperature" id="temp4" value="4">
+      <label for="temp4" title="4 Stars">★</label>
+      <input type="radio" name="food_temperature" id="temp3" value="3">
+      <label for="temp3" title="3 Stars">★</label>
+      <input type="radio" name="food_temperature" id="temp2" value="2">
+      <label for="temp2" title="2 Stars">★</label>
+      <input type="radio" name="food_temperature" id="temp1" value="1">
+      <label for="temp1" title="1 Star">★</label>
+    </div>
+
+    <!-- PORTIONS -->
+    <label>Portion Sizes</label>
+    <div class="star-rating">
+      <input type="radio" name="portion_sizes" id="port5" value="5">
+      <label for="port5" title="5 Stars">★</label>
+      <input type="radio" name="portion_sizes" id="port4" value="4">
+      <label for="port4" title="4 Stars">★</label>
+      <input type="radio" name="portion_sizes" id="port3" value="3">
+      <label for="port3" title="3 Stars">★</label>
+      <input type="radio" name="portion_sizes" id="port2" value="2">
+      <label for="port2" title="2 Stars">★</label>
+      <input type="radio" name="portion_sizes" id="port1" value="1">
+      <label for="port1" title="1 Star">★</label>
+    </div>
+
+    <!-- VARIETY -->
+    <label>Menu Variety</label>
+    <div class="star-rating">
+      <input type="radio" name="menu_variety" id="var5" value="5">
+      <label for="var5" title="5 Stars">★</label>
+      <input type="radio" name="menu_variety" id="var4" value="4">
+      <label for="var4" title="4 Stars">★</label>
+      <input type="radio" name="menu_variety" id="var3" value="3">
+      <label for="var3" title="3 Stars">★</label>
+      <input type="radio" name="menu_variety" id="var2" value="2">
+      <label for="var2" title="2 Stars">★</label>
+      <input type="radio" name="menu_variety" id="var1" value="1">
+      <label for="var1" title="1 Star">★</label>
+    </div>
+
+    <hr>
+
+    <!-- ========================================================== -->
+    <!-- SECTION 3: STAFF & LOGISTICS (Star Ratings)                -->
+    <!-- ========================================================== -->
+    <h3>3. Rate the Service &amp; Staff <small>(1 = Very Poor, 5 = Excellent)</small></h3>
+
+    <!-- PUNCTUALITY -->
+    <label>Punctuality</label>
+    <div class="star-rating">
+      <input type="radio" name="staff_punctuality" id="punc5" value="5">
+      <label for="punc5" title="5 Stars">★</label>
+      <input type="radio" name="staff_punctuality" id="punc4" value="4">
+      <label for="punc4" title="4 Stars">★</label>
+      <input type="radio" name="staff_punctuality" id="punc3" value="3">
+      <label for="punc3" title="3 Stars">★</label>
+      <input type="radio" name="staff_punctuality" id="punc2" value="2">
+      <label for="punc2" title="2 Stars">★</label>
+      <input type="radio" name="staff_punctuality" id="punc1" value="1">
+      <label for="punc1" title="1 Star">★</label>
+    </div>
+
+    <!-- PROFESSIONALISM -->
+    <label>Staff Professionalism &amp; Friendliness</label>
+    <div class="star-rating">
+      <input type="radio" name="staff_professionalism" id="prof5" value="5">
+      <label for="prof5" title="5 Stars">★</label>
+      <input type="radio" name="staff_professionalism" id="prof4" value="4">
+      <label for="prof4" title="4 Stars">★</label>
+      <input type="radio" name="staff_professionalism" id="prof3" value="3">
+      <label for="prof3" title="3 Stars">★</label>
+      <input type="radio" name="staff_professionalism" id="prof2" value="2">
+      <label for="prof2" title="2 Stars">★</label>
+      <input type="radio" name="staff_professionalism" id="prof1" value="1">
+      <label for="prof1" title="1 Star">★</label>
+    </div>
+
+    <!-- DIETARY -->
+    <label>Dietary Accommodation</label>
+    <div class="star-rating">
+      <input type="radio" name="dietary_accommodation" id="diet5" value="5">
+      <label for="diet5" title="5 Stars">★</label>
+      <input type="radio" name="dietary_accommodation" id="diet4" value="4">
+      <label for="diet4" title="4 Stars">★</label>
+      <input type="radio" name="dietary_accommodation" id="diet3" value="3">
+      <label for="diet3" title="3 Stars">★</label>
+      <input type="radio" name="dietary_accommodation" id="diet2" value="2">
+      <label for="diet2" title="2 Stars">★</label>
+      <input type="radio" name="dietary_accommodation" id="diet1" value="1">
+      <label for="diet1" title="1 Star">★</label>
+    </div>
+
+    <!-- COMMUNICATION -->
+    <label>Communication &amp; Planning</label>
+    <div class="star-rating">
+      <input type="radio" name="communication_planning" id="comm5" value="5">
+      <label for="comm5" title="5 Stars">★</label>
+      <input type="radio" name="communication_planning" id="comm4" value="4">
+      <label for="comm4" title="4 Stars">★</label>
+      <input type="radio" name="communication_planning" id="comm3" value="3">
+      <label for="comm3" title="3 Stars">★</label>
+      <input type="radio" name="communication_planning" id="comm2" value="2">
+      <label for="comm2" title="2 Stars">★</label>
+      <input type="radio" name="communication_planning" id="comm1" value="1">
+      <label for="comm1" title="1 Star">★</label>
+    </div>
+
+    <hr>
+
+    <!-- ========================================================== -->
+    <!-- SECTION 4: BIG-PICTURE (1–5 Star Rating)                   -->
+    <!-- ========================================================== -->
+    <h3>4. Your Overall Verdict</h3>
+
+    <!-- RECOMMENDATION (1–5) -->
+    <label>How likely are you to recommend us? <span class="required-star">*</span></label>
+    <div class="star-rating">
+      <input type="radio" name="nps_score" id="nps5" value="5" required>
+      <label for="nps5" title="5 - Absolutely">★</label>
+      <input type="radio" name="nps_score" id="nps4" value="4">
+      <label for="nps4" title="4 - Very Likely">★</label>
+      <input type="radio" name="nps_score" id="nps3" value="3">
+      <label for="nps3" title="3 - Neutral">★</label>
+      <input type="radio" name="nps_score" id="nps2" value="2">
+      <label for="nps2" title="2 - Unlikely">★</label>
+      <input type="radio" name="nps_score" id="nps1" value="1">
+      <label for="nps1" title="1 - Not at all">★</label>
+    </div>
+    <div class="rating-hint">1 = Not at all &nbsp;·&nbsp; 3 = Neutral &nbsp;·&nbsp; 5 = Absolutely</div>
+
+    <!-- FUTURE INTENT -->
+    <label for="future">Would you use our catering services again?</label>
+    <select id="future" name="future_intent">
+      <option value="">Select…</option>
+      <option value="yes">Yes, absolutely</option>
+      <option value="maybe">Maybe / It depends</option>
+      <option value="no">No</option>
+    </select>
+
+    <!-- EXPECTATIONS -->
+    <label for="expectations">How did our service compare to your expectations?</label>
+    <select id="expectations" name="expectations_vs_expectations">
+      <option value="">Select…</option>
+      <option value="exceeded">Far exceeded my expectations</option>
+      <option value="met">Met my expectations</option>
+      <option value="below">Below my expectations</option>
+    </select>
+
+    <hr>
+
+    <!-- ========================================================== -->
+    <!-- SECTION 5: OPEN TEXT                                       -->
+    <!-- ========================================================== -->
+    <h3>5. Tell Us More <small>(optional)</small></h3>
+
+    <label for="enjoyed">What did you enjoy most about our service?</label>
+    <textarea id="enjoyed" name="enjoyed_most" rows="3" maxlength="500" placeholder="e.g., The salmon was perfectly cooked, and your team cleaned up without us asking."></textarea>
+
+    <label for="improve">What areas can we improve for future events?</label>
+    <textarea id="improve" name="areas_for_improvement" rows="3" maxlength="500" placeholder="Constructive feedback helps us grow…"></textarea>
+
+    <hr>
+
+    <!-- ========================================================== -->
+    <!-- SECTION 6: TESTIMONIAL + CONSENT                           -->
+    <!-- ========================================================== -->
+    <h3>⭐ 6. Help Other Hosts Choose Wisely</h3>
+    <p style="color: #4a4a4a; margin-top: -6px;"><small>We'd love to feature your experience on our website (with your first name &amp; event type).</small></p>
+
+    <label for="testimonial">Write a short testimonial about your catering experience:</label>
+    <textarea id="testimonial" name="testimonial" rows="4" maxlength="300" placeholder="e.g., The salmon was the star of the night—every guest asked who catered! The setup was flawless and the team was so professional."></textarea>
+
+    <!-- ─── LEGAL CONSENT ─── -->
+    <div class="consent-box">
+      <input type="checkbox" id="testimonial_consent" name="testimonial_consent" value="yes" required>
+      <label for="testimonial_consent">
+        <strong>✅ I grant permission</strong> for <strong>[Your Catering Company Name]</strong> to use my testimonial, first name, and event type on their website, social media, and marketing materials.
+        <span style="color:#dc3545;">*</span>
+      </label>
+      <p style="margin: 6px 0 0 32px; font-size: 14px; color: #6c757d;">(Required to publish your review.)</p>
+    </div>
+
+    <hr>
+
+    <!-- ========================================================== -->
+    <!-- CONVERSION HOOK + SUBMIT                                   -->
+    <!-- ========================================================== -->
+    <!--<label style="margin-top: 6px;">
+      <input type="checkbox" name="voucher_optin" value="yes" checked style="width:20px;height:20px;margin-right:10px;accent-color:#e67e22;transform:translateY(3px);">
+      <span style="font-weight:400;font-size:16px;">✅ Yes! Send me a <strong>10% off voucher</strong> for my next booking and add me to your seasonal menu updates.</span>
+    </label> -->
+
+    <!-- ─── ANTISPAM ─── -->
+    <input type="text" name="_gotcha" style="display:none;">
+
+    <!-- ─── SUBMIT ─── -->
+    <button type="submit">📩 Submit Feedback</button>
+
+  </form>
+  <!-- ============================================================ -->
+  <!--  FORM ENDS HERE                                              -->
+  <!-- ============================================================ -->
+
+</div>
+</body>
+</html>
