@@ -372,7 +372,7 @@
             border-color: var(--rose-hover);
         }
 
-        /* ----- HERO WITH BLEED EFFECT ----- */
+        /* ----- HERO WITH SLIDER ----- */
         .hero {
             position: relative;
             padding: 2.5rem 0 2rem;
@@ -384,35 +384,6 @@
             backdrop-filter: blur(2px);
         }
 
-        /* Bleeding background image */
-        .hero-background {
-            position: absolute;
-            top: -80px;
-            right: -150px;
-            bottom: -80px;
-            left: -150px;
-            background-image: url('hero.jpg');
-            background-size: cover;
-            background-position: center 30%;
-            background-repeat: no-repeat;
-            opacity: 0.15;
-            z-index: 0;
-            transform: scale(1.05);
-            pointer-events: none;
-        }
-
-        /* Gradient overlay for smooth blending */
-        .hero-background::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: radial-gradient(ellipse at 70% 50%, transparent 40%, rgba(254, 252, 247, 0.4) 100%);
-            pointer-events: none;
-        }
-
         .hero-content {
             display: flex;
             flex-wrap: wrap;
@@ -420,11 +391,12 @@
             align-items: center;
             position: relative;
             z-index: 1;
+            gap: 2rem;
         }
 
         .hero-text {
             color: #2b3e3e;
-            flex: 1 1 300px;
+            flex: 1 1 45%;
             position: relative;
             z-index: 2;
             background: rgba(254, 252, 247, 0.75);
@@ -443,7 +415,7 @@
             margin-bottom: 0.5rem;
             line-height: 1.1;
         }
-        
+
         .hero-text h1 span {
             color: var(--rose);
         }
@@ -479,44 +451,192 @@
             color: var(--rose);
         }
 
-        .hero-image {
-            flex: 0 0 auto;
-            width: 100%;
-            max-width: 569px;
-            height: 320px;
+        /* Hero Slider */
+        .hero-slider {
+            flex: 1 1 45%;
+            position: relative;
             border-radius: 60px 20px 60px 20px;
             overflow: hidden;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-            margin-top: 1rem;
             background: rgba(229, 217, 206, 0.6);
-            position: relative;
-            z-index: 2;
             border: 4px solid rgba(255, 255, 255, 0.3);
+            min-height: 320px;
         }
 
-        .hero-image .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
+        .hero-slider .slider-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
 
-        .hero-image .hero-icons {
-            display: none;
+        .hero-slider .slider-track .slide {
+            flex: 0 0 100%;
+            min-height: 320px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .hero-slider .slide .slide-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+            color: white;
+        }
+
+        .hero-slider .slide .slide-overlay h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: 'Cormorant Garamond', serif;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-slider .slide .slide-overlay p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .hero-slider .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--deep-charcoal);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            height: 100%;
-            gap: 12px;
-            font-size: 2.2rem;
-            color: #3a4f4f;
         }
 
-        .hero-image .hero-img:not([src]),
-        .hero-image .hero-img[src=""],
-        .hero-image .hero-img:not([src]) ~ .hero-icons,
-        .hero-image .hero-img[src=""] ~ .hero-icons {
+        .hero-slider .slider-btn:hover {
+            background: var(--forest-green);
+            color: white;
+        }
+
+        .hero-slider .slider-btn.prev {
+            left: 12px;
+        }
+
+        .hero-slider .slider-btn.next {
+            right: 12px;
+        }
+
+        .hero-slider .slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .hero-slider .slider-dots .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .hero-slider .slider-dots .dot.active {
+            background: white;
+            border-color: white;
+            transform: scale(1.2);
+        }
+
+        .hero-slider .slider-dots .dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-slider .slide-counter {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
+
+        /* Responsive Hero Slider */
+        @media (max-width: 768px) {
+            .hero-slider {
+                min-height: 220px;
+                border-radius: 30px 10px 30px 10px;
+                flex: 1 1 100%;
+            }
+
+            .hero-slider .slider-track .slide {
+                min-height: 220px;
+            }
+
+            .hero-slider .slider-btn {
+                width: 32px;
+                height: 32px;
+                font-size: 0.8rem;
+            }
+
+            .hero-slider .slider-btn.prev {
+                left: 8px;
+            }
+
+            .hero-slider .slider-btn.next {
+                right: 8px;
+            }
+
+            .hero-slider .slide .slide-overlay h4 {
+                font-size: 1rem;
+            }
+
+            .hero-slider .slide .slide-overlay p {
+                font-size: 0.75rem;
+            }
+
+            .hero-slider .slide-counter {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.6rem;
+                top: 8px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-slider {
+                min-height: 180px;
+                border-radius: 20px 8px 20px 8px;
+            }
+
+            .hero-slider .slider-track .slide {
+                min-height: 180px;
+            }
+
+            .hero-slider .slide .slide-overlay {
+                padding: 1rem 1.2rem;
+            }
+
+            .hero-slider .slide .slide-overlay h4 {
+                font-size: 0.9rem;
+            }
         }
 
         .quick-features {
@@ -1179,25 +1299,15 @@
             .section-title {
                 font-size: 2rem;
             }
-            
-            .hero-image {
-                max-width: 100%;
-                height: 220px;
-            }
 
             .hero-text {
                 padding: 1rem 1.2rem;
                 backdrop-filter: blur(6px);
+                flex: 1 1 100%;
             }
 
             .hero-text h1 {
                 font-size: 2rem;
-            }
-
-            .hero-background {
-                right: -80px;
-                left: -80px;
-                opacity: 0.12;
             }
 
             /* Chef section - stack on tablet */
@@ -1285,11 +1395,6 @@
                 font-size: 0.95rem;
             }
             
-            .hero-image {
-                max-width: 100%;
-                height: 180px;
-            }
-            
             .hero-badge {
                 gap: 10px 15px;
                 font-size: 0.65rem;
@@ -1298,14 +1403,6 @@
             .hero-text {
                 padding: 0.8rem 1rem;
                 backdrop-filter: blur(4px);
-            }
-
-            .hero-background {
-                right: -40px;
-                left: -40px;
-                top: -40px;
-                bottom: -40px;
-                opacity: 0.10;
             }
             
             .quick-features {
@@ -1553,10 +1650,6 @@
             .pillars {
                 grid-template-columns: 1fr;
             }
-            
-            .hero-image {
-                height: 140px;
-            }
 
             .hero-text {
                 padding: 0.6rem 0.8rem;
@@ -1645,11 +1738,8 @@
         </div>
     </nav>
 
-    <!-- ===== HERO WITH BLEED EFFECT ===== -->
+    <!-- ===== HERO WITH IMAGE SLIDER ===== -->
     <div class="hero">
-        <!-- Bleeding background image 
-        <div class="hero-background"></div> -->
-        
         <div class="container hero-content">
             <div class="hero-text">
                 <h1>Mediterranean Catering<br><span> &amp; Private Events</span></h1>
@@ -1663,13 +1753,58 @@
                     <span><i class="fas fa-location-dot"></i> Orlando Delivery</span>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="img/hero.jpg" alt="Mediterranean Catering spread from AZ Kitchen" class="hero-img" />
-                <div class="hero-icons">
-                    <i class="fas fa-utensil-spoon"></i>
-                    <i class="fas fa-mug-saucer"></i>
-                    <i class="fas fa-bowl-food"></i>
+
+            <!-- Hero Image Slider -->
+            <div class="hero-slider" id="heroSlider">
+                <div class="slider-track" id="heroSliderTrack">
+                    
+                    <!-- Slide 1 -->
+                    <div class="slide" style="background-image: url('img/slider/moroccan-tagine.jpg');">
+                        <div class="slide-overlay">
+                            <h4>Moroccan Chicken Tagine</h4>
+                            <p>Slow-cooked with preserved lemons, olives &amp; aromatic spices</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="slide" style="background-image: url('img/slider/harissa-salmon.jpg');">
+                        <div class="slide-overlay">
+                            <h4>Honey Harissa Salmon</h4>
+                            <p>Sweet &amp; spicy glaze with lemon herb quinoa</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 3 -->
+                    <div class="slide" style="background-image: url('img/slider/mediterranean-burgers.jpg');">
+                        <div class="slide-overlay">
+                            <h4>Mediterranean Chicken Burgers</h4>
+                            <p>Juicy burgers with garlic wedges &amp; dairy-free tzatziki</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 4 -->
+                    <div class="slide" style="background-image: url('img/slider/vegetarian-tagine.jpg');">
+                        <div class="slide-overlay">
+                            <h4>Vegetarian Moroccan Tagine</h4>
+                            <p>Hearty chickpeas &amp; vegetables with herbed couscous</p>
+                        </div>
+                    </div>
+                    
                 </div>
+
+                <!-- Navigation Buttons -->
+                <button class="slider-btn prev" id="heroPrevBtn" aria-label="Previous slide">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="slider-btn next" id="heroNextBtn" aria-label="Next slide">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+                <!-- Slide Counter -->
+                <div class="slide-counter" id="heroSlideCounter">1 / 4</div>
+
+                <!-- Dots -->
+                <div class="slider-dots" id="heroSliderDots"></div>
             </div>
         </div>
     </div>
@@ -1681,7 +1816,7 @@
             
             <!-- Catering Card -->
             <div class="serve-card" style="display: flex; flex-direction: column; height: 100%;">
-                <img src="img/catering5.jpg" alt="Catering event" class="serve-image" />
+                <img src="img/catering6.jpg" alt="Catering event" class="serve-image" />
                 <h3>CATERING</h3>
                 <p>Perfect for any occasion.</p>
                 <ul class="serve-features" style="flex: 1;">
@@ -2451,12 +2586,125 @@
         });
 
         // ============================================================
+        // HERO SLIDER
+        // ============================================================
+        function initHeroSlider() {
+            const track = document.getElementById('heroSliderTrack');
+            const slides = track.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('heroPrevBtn');
+            const nextBtn = document.getElementById('heroNextBtn');
+            const counter = document.getElementById('heroSlideCounter');
+            const dotsContainer = document.getElementById('heroSliderDots');
+            
+            if (!track || slides.length === 0) return;
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            let autoplayInterval = null;
+            let isTransitioning = false;
+            
+            // Create dots
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            const dots = dotsContainer.querySelectorAll('.dot');
+            
+            function updateSlider() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+                
+                counter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 600);
+            }
+            
+            function goToSlide(index) {
+                if (isTransitioning) return;
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentIndex = index;
+                updateSlider();
+                resetAutoplay();
+            }
+            
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+            
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+            
+            function startAutoplay() {
+                if (autoplayInterval) clearInterval(autoplayInterval);
+                autoplayInterval = setInterval(nextSlide, 5000);
+            }
+            
+            function resetAutoplay() {
+                if (autoplayInterval) {
+                    clearInterval(autoplayInterval);
+                    startAutoplay();
+                }
+            }
+            
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            const sliderContainer = document.querySelector('.hero-slider');
+            sliderContainer.addEventListener('mouseenter', () => {
+                if (autoplayInterval) clearInterval(autoplayInterval);
+            });
+            sliderContainer.addEventListener('mouseleave', startAutoplay);
+            
+            // Touch support
+            let touchStartX = 0;
+            let touchEndX = 0;
+            
+            sliderContainer.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            sliderContainer.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) nextSlide();
+                    else prevSlide();
+                }
+            }, { passive: true });
+            
+            updateSlider();
+            startAutoplay();
+        }
+
+        // ============================================================
         // INITIALIZATION
         // ============================================================
         renderFormMeals();
         renderSummaryRows();
         updatePaymentInfo();
         updateSummary();
+
+        // Initialize hero slider when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initHeroSlider);
+        } else {
+            initHeroSlider();
+        }
     </script>
 
 </body>
