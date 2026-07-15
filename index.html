@@ -1671,12 +1671,18 @@
         }
 
         /* Fix for iOS input styling */
-        input,
+        input:not([type="checkbox"]):not([type="radio"]),
         textarea,
         select {
             -webkit-appearance: none;
             appearance: none;
             border-radius: 30px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+        -webkit-appearance: auto;
+        appearance: auto;
         }
 
         /* Fix for contact form button on mobile */
