@@ -123,19 +123,20 @@
         /* Chef + Reviews Section */
         .chef-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.2fr 0.8fr;
             gap: 2rem;
             margin: 4rem 0;
             background: var(--light-grey-bg);
             padding: 2rem;
             border-radius: 30px;
             border: 1px solid var(--border-light);
+			align-items: stretch;
         }
 
         .chef-block {
             display: flex;
             gap: 1.5rem;
-            align-items: center;
+            align-items: flex-start;
         }
         
         .chef-avatar {
@@ -167,31 +168,245 @@
 
         .review-block {
             border-left: 1px solid var(--border-light);
-            padding-left: 2rem;
+            padding-left: 1.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
+			min-height: 100%;
+			max-width: 100%;
         }
-        
-        .stars {
+
+        /* ----- REVIEWS CAROUSEL ----- */
+        .reviews-slider {
+            position: relative;
+            overflow: hidden;
+            margin-top: 0;
+			max-width: 100%;
+        }
+
+        .reviews-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
+        }
+
+        .review-slide {
+            flex: 0 0 100%;
+            padding: 0;
+        }
+
+        .review-slide .review-card {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 1rem 1.2rem;
+            border-radius: 16px;
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--border-light);
+            min-height: 120px;
+            max-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+			overflow: hidden;
+        }
+
+        .review-slide .review-card .stars {
             color: var(--rose);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
+            font-size: 0.75rem;
         }
-        
-        .review-text {
-            font-size: 1rem;
+
+        .review-slide .review-card .review-text {
+            font-size: 0.82rem;
             font-style: italic;
             color: var(--deep-charcoal);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
             font-weight: 400;
+            line-height: 1.4;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
         }
-        
-        .review-author {
-            font-size: 0.85rem;
+
+        .review-slide .review-card .review-author {
+            font-size: 0.75rem;
             font-weight: 600;
             color: var(--charcoal-light);
-            margin-bottom: 0.5rem;
         }
+
+        .review-slide .review-card .review-author span {
+            font-weight: 400;
+            font-size: 0.7rem;
+        }
+
+        /* Reviews Navigation */
+        .reviews-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.8rem;
+            margin-top: 0.6rem;
+        }
+
+        .reviews-nav .nav-btn {
+            background: var(--light-grey-bg);
+            border: 1px solid var(--border-light);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: var(--deep-charcoal);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .reviews-nav .nav-btn:hover {
+            background: var(--forest-green);
+            color: white;
+            border-color: var(--forest-green);
+        }
+
+        .reviews-nav .nav-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .reviews-nav .nav-dots .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: 2px solid var(--warm-tan);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .reviews-nav .nav-dots .dot.active {
+            background: var(--rose);
+            border-color: var(--rose);
+            transform: scale(1.2);
+        }
+
+        .reviews-nav .nav-dots .dot:hover {
+            background: var(--rose-hover);
+            border-color: var(--rose-hover);
+        }
+
+        .reviews-counter {
+            font-size: 0.7rem;
+            color: var(--charcoal-light);
+            font-weight: 500;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* Responsive Reviews */
+        @media (max-width: 768px) {
+			.chef-container {
+				grid-template-columns: 1fr; /* Stack on tablet */
+				padding: 1.5rem;
+			}
+
+			.review-block {
+				border-left: none;
+				border-top: 1px solid var(--border-light);
+				padding-left: 0;
+				padding-top: 1.5rem;
+				max-width: 100%;
+			}
+			
+            .review-slide .review-card {
+                min-height: 100px;
+                max-height: 160px;
+				padding: 0.8rem 1rem;
+            }
+
+            .review-slide .review-card .review-text {
+                font-size: 0.85rem;
+				-webkit-line-clamp: 3;
+            }
+
+            .reviews-nav .nav-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+        }
+		
+		@media (max-width: 600px) {
+			.chef-container {
+				padding: 1.2rem;
+				margin: 2rem 0;
+				border-radius: 20px;
+			}
+
+			.chef-block {
+				flex-direction: column;
+				text-align: center;
+				align-items: center;
+			}
+
+			.chef-avatar {
+				width: 100px;
+				height: 100px;
+			}
+
+			.chef-text h3 {
+				font-size: 1.3rem;
+			}
+
+			.chef-text p {
+				font-size: 0.85rem;
+			}
+
+			.review-block {
+				padding-top: 1.2rem;
+			}
+
+			.review-slide .review-card {
+				min-height: 90px;
+				max-height: 140px;
+				padding: 0.6rem 0.8rem;
+				border-radius: 12px;
+			}
+
+			.review-slide .review-card .review-text {
+				font-size: 0.78rem;
+				-webkit-line-clamp: 3;
+			}
+
+			.review-slide .review-card .stars {
+				font-size: 0.65rem;
+			}
+
+			.review-slide .review-card .review-author {
+				font-size: 0.7rem;
+			}
+
+			.reviews-nav {
+				gap: 0.5rem;
+				margin-top: 0.5rem;
+			}
+
+			.reviews-nav .nav-btn {
+				width: 26px;
+				height: 26px;
+				font-size: 0.65rem;
+			}
+
+			.reviews-nav .nav-dots .dot {
+				width: 6px;
+				height: 6px;
+			}
+
+			.reviews-counter {
+				font-size: 0.65rem;
+				min-width: 25px;
+			}
+		}
 
         /* BOTTOM CTA */
         .bottom-cta {
@@ -1490,9 +1705,47 @@
                 font-size: 0.85rem;
             }
 
-            .review-text {
-                font-size: 0.9rem;
+            @media (max-width: 600px) {
+			.review-slide .review-card {
+				min-height: 100px;
+				max-height: 160px;
+				padding: 0.8rem 1rem;
+				border-radius: 16px;
+			}
+
+            .review-slide .review-card .review-text {
+                font-size: 0.8rem;
+				-webkit-line-clamp: 3;
             }
+
+			.review-slide .review-card .stars {
+				font-size: 0.7rem;
+			}
+
+			.review-slide .review-card .review-author {
+				font-size: 0.75rem;
+			}
+
+            .reviews-nav {
+                gap: 0.6rem;
+                margin-top: 0.6rem;
+            }
+
+            .reviews-nav .nav-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 0.7rem;
+            }
+
+			.reviews-nav .nav-dots .dot {
+				width: 7px;
+				height: 7px;
+			}
+
+			.reviews-counter {
+				font-size: 0.7rem;
+				min-width: 30px;
+			}
 
             /* Bottom CTA - mobile */
             .bottom-cta {
@@ -1816,7 +2069,7 @@
                 </button>
 
                 <!-- Slide Counter -->
-                <div class="slide-counter" id="heroSlideCounter">1 / 4</div>
+                <div class="slide-counter" id="heroSlideCounter">1 / 5</div>
 
                 <!-- Dots -->
                 <div class="slider-dots" id="heroSliderDots"></div>
@@ -1925,32 +2178,83 @@
                 </div>
             </div>
 
+            <!-- Reviews Carousel -->
             <div class="review-block">
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+				<h3 style="font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--deep-charcoal); margin-bottom: 0.8rem; letter-spacing: -0.02em; text-align: center;">
+					<i class="fas fa-star" style="color: var(--rose); font-size: 1rem; margin-right: 6px;"></i> Testimonials <i class="fas fa-star" style="color: var(--rose); font-size: 1rem; margin-right: 6px;"></i>
+				</h3>
+                <div class="reviews-slider" id="reviewsSlider">
+                    <div class="reviews-track" id="reviewsTrack">
+                        
+                        <!-- Review 1 -->
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-text">"The food was incredible and beautifully presented. Our guests are still talking about it!"</div>
+                                <div class="review-author">Melissa R. <span>· Private Event Client</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 2 -->
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-text">"The food was a hit for our out of town corporate guests. They raved about the chicken burgers the most but everything was fantastic. Highly recommend."</div>
+                                <div class="review-author">Kent M. <span>· Corporate Event Client</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 3 -->
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-text">"The food was absolutely spectacular, and the team provided flawless, attentive service that made our event completely stress-free!"</div>
+                                <div class="review-author">Nadine <span>· Private Event Client</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 4 -->
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-text">"The food was fantastic!!! Everyone loved it - thank you so much!"</div>
+                                <div class="review-author">Matthew <span>· Private Event Client</span></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 5 -->
+                        <div class="review-slide">
+                            <div class="review-card">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                                <div class="review-text">"Chef Fatima was an absolute joy to work with! She combines the rich, authentic flavors of Morocco with the fresh, vibrant taste of Mediterranean cuisine, creating dishes that are both unique and unforgettable."</div>
+                                <div class="review-author">Chaimaa J. <span>· Private Event Client</span></div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
-                <div class="review-text">"The food was incredible and beautifully presented. Our guests are still talking about it!"</div>
-                <div class="review-author">— Melissa R.<br><span style="font-weight:400; font-size:0.8rem;">Private Event Client</span></div>
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                
+                <!-- Reviews Navigation -->
+                <div class="reviews-nav">
+                    <button class="nav-btn" id="reviewsPrev" aria-label="Previous review">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="nav-dots" id="reviewsDots"></div>
+                    <span class="reviews-counter" id="reviewsCounter">1 / 5</span>
+                    <button class="nav-btn" id="reviewsNext" aria-label="Next review">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                <div class="review-text">"The food was a hit for our out of town corporate guests. They raved about the chicken burgers the most but everything was fantastic. Highly recommend."</div>
-                <div class="review-author">— Kent M.<br><span style="font-weight:400; font-size:0.8rem;">Corporate Event Client</span></div>
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <div class="review-text">"The food was absolutely spectacular, and the team provided flawless, attentive service that made our event completely stress-free!"</div>
-                <div class="review-author">— Nadine<br><span style="font-weight:400; font-size:0.8rem;"></span></div>
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <div class="review-text">"The food was fantastic!!! Everyone loved it - thank you so much!"</div>
-                <div class="review-author">— Matthew<br><span style="font-weight:400; font-size:0.8rem;">Private Event Client</span></div>
-                <div class="stars">
-                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                </div>
-                <div class="review-text">"Chef Fatima was an absolute joy to work with! She combines the rich, authentic flavors of Morocco with the fresh, vibrant taste of Mediterranean cuisine, creating dishes that are both unique and unforgettable. Everything was beautifully presented, fresh, and absolutely delicious."</div>
-                <div class="review-author">— Chaimaa J.<br><span style="font-weight:400; font-size:0.8rem;">Private Event Client</span></div>
             </div>
             
         </div>
@@ -2725,6 +3029,117 @@
         }
 
         // ============================================================
+        // REVIEWS CAROUSEL
+        // ============================================================
+        function initReviewsSlider() {
+            const track = document.getElementById('reviewsTrack');
+            const slides = track.querySelectorAll('.review-slide');
+            const prevBtn = document.getElementById('reviewsPrev');
+            const nextBtn = document.getElementById('reviewsNext');
+            const counter = document.getElementById('reviewsCounter');
+            const dotsContainer = document.getElementById('reviewsDots');
+            
+            if (!track || slides.length === 0) return;
+            
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            let isTransitioning = false;
+            let autoplayInterval = null;
+            
+            // Create dots
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.className = 'dot' + (index === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to review ${index + 1}`);
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            
+            const dots = dotsContainer.querySelectorAll('.dot');
+            
+            function updateSlider() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+                
+                counter.textContent = `${currentIndex + 1} / ${totalSlides}`;
+                
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500);
+            }
+            
+            function goToSlide(index) {
+                if (isTransitioning) return;
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentIndex = index;
+                updateSlider();
+                resetAutoplay();
+            }
+            
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+            
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+            
+            function startAutoplay() {
+                if (autoplayInterval) clearInterval(autoplayInterval);
+                autoplayInterval = setInterval(nextSlide, 6000);
+            }
+            
+            function resetAutoplay() {
+                if (autoplayInterval) {
+                    clearInterval(autoplayInterval);
+                    startAutoplay();
+                }
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Pause on hover
+            const sliderContainer = document.querySelector('.reviews-slider');
+            if (sliderContainer) {
+                sliderContainer.addEventListener('mouseenter', () => {
+                    if (autoplayInterval) clearInterval(autoplayInterval);
+                });
+                sliderContainer.addEventListener('mouseleave', startAutoplay);
+                
+                // Touch support
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                sliderContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                }, { passive: true });
+                
+                sliderContainer.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    const diff = touchStartX - touchEndX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0) nextSlide();
+                        else prevSlide();
+                    }
+                }, { passive: true });
+            }
+            
+            // Initialize
+            updateSlider();
+            startAutoplay();
+        }
+
+        // ============================================================
         // INITIALIZATION
         // ============================================================
         renderFormMeals();
@@ -2732,11 +3147,15 @@
         updatePaymentInfo();
         updateSummary();
 
-        // Initialize hero slider when DOM is ready
+        // Initialize sliders when DOM is ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initHeroSlider);
+            document.addEventListener('DOMContentLoaded', () => {
+                initHeroSlider();
+                initReviewsSlider();
+            });
         } else {
             initHeroSlider();
+            initReviewsSlider();
         }
     </script>
 
